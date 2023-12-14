@@ -1,42 +1,45 @@
-# Description
-**Youtube Comment Scraping and Analysis:**  It is a web application made specially for youtube content creators to know their reviews separately as positive and negative comments.
+# YouTube Sentiment Analysis 👍👎😊
 
-# Working Video
-https://drive.google.com/file/d/1x-bNAR4Snt1Yz-9nurBKiu96nMXcbQZL/view?usp=share_link
+This project provides a web application for sentiment analysis of YouTube comments. It allows users to input a YouTube link and analyzes the sentiment of the comments associated with that video. The application also displays video information, channel information, and visualizations of the sentiment analysis results.
 
-# What it does
-- Asks for youtube video url and mail id.
-- The web application scrapes the comments of the video and analyses the positive and negative comments.
-- The time for scraping the comments depends on how many comments in the video. The estimate is that, it takes about 5 to 6 minutes to scrap 1000 comments.
-- After the process is complete, the comments are mailed to the mail-id given by the user, as a excel file.
-- Three files will be sent to the mail-id:
-  - Full comments
-  - Positive comments
-  - Negative comments
-- It will also produce a HTML table when the process is finished in the background.
-- There are two tables: Positive Comments Table and Negative Comments Table.
+## Features ✨
 
-# Build Status
-- The web app will work without any bugs in local machine and produce the output.
-- **BUG** - When run on the cloud, the website does not work for the video url that takes time more than 30 seconds to scrap the comments.
-- The bug is due to the built of cloud to produce timeout error after 30 seconds.
+- Extracts the video ID from a YouTube link.
+- Retrieves comments from the specified YouTube video and saves them to a CSV file. 💬📑
+- Performs sentiment analysis on the comments using the VADER (Valence Aware Dictionary and sEntiment Reasoner) sentiment analysis tool. 😃😠😐
+- Generates bar charts and scatter plots to visualize the sentiment analysis results. 📊📈
+- Retrieves video and channel information from the YouTube API. 📺🔍
+- Provides an interactive web interface using Streamlit. 🌐✨
 
-# To-Do's
-- NLTK used is Vader lexican module, it can be improved by our own NLTK model in machine learning or Deep Learning (Ex: BERT) but the downside is that, we have to collect labelled data to train the model. So, for now Vader lexican module is used.
-- **BUG FIX:** Make the program to stop the scraping and produce the table with the comments that are scraped so far, for every 20 seconds until the scraping is finished fully. (I am new to cloud, not sure if it will work.)
-- Try youtube API for faster comment scraping.
-- If we cannot able to fix the bug, we can make a normal application to run on the local systems(PC Application).
+## Installation 🛠️
 
-# How to run on local machine
-- Unnecessary files – Procfile, nltx.txt, requirements.txt, runtime.txt.
-- **NOTE :** If the bug is fixed and you want to run on cloud, these files are necessary.
-- Run the codes in your preferred IDE [I used PyCharm Professional]. It will run fine on local machine.
+1. Clone the repository:
 
-# Mail Sending File Changes
-- Changes to be done in mail_sending_to_user_with_attached_csv_files.py
-- Create one Gmail ID for sending emails to the user.
-- **NOTE:** Do not use the password you created when opening the mail-id.
-- After Creating Gmail id, Create your App Password and use this generated password in the program, so that google enables you to sign in via bot.
-- Steps to Create App password:
-  - Go to manage your google account -> Go to Setting -> Scroll down to find Signing in to Google -> Click App passwords -> Enter password -> Generate your App password.
-- Change Subject of your wish.
+2. Install the required dependencies:
+
+3. Obtain a YouTube Data API key from the [Google Cloud Console](https://console.cloud.google.com/) and replace `YOUR_API_KEY` in `app.py` with your actual API key.
+
+4. Run the application:
+
+
+## Usage 🚀
+
+1. Open the application in your web browser.
+
+2. Enter a valid YouTube link in the sidebar. 🔗
+
+3. Wait for the application to retrieve the video and channel information, save the comments to a CSV file, perform sentiment analysis, and display the results. ⌛
+
+4. Explore the sentiment analysis results, video information, and channel information. 📈📺
+
+## Contributing 🤝
+
+Contributions are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request.
+
+## License 📄
+
+This project is licensed under the [MIT License](LICENSE).
+
+
+
+
