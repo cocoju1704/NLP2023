@@ -33,7 +33,7 @@ def extract_video_id(youtube_link):
 def analyze_sentiment(csv_file):
     # youtube comments csv -> dataframe
     raw_df = pd.read_csv(csv_file)
-    #how to set model path?
+    #set model path?
     model_path = "./best_model_second"
     tokenizer = BertTokenizer.from_pretrained(model_path)
     model = BertForSequenceClassification.from_pretrained(model_path)
@@ -76,7 +76,7 @@ def bar_chart(csv_file: str) -> None:
 
     # Create the bar chart using Plotly Express
     fig = px.bar(df, x='Sentiment', y='Number of Comments', color='Sentiment',
-                 color_discrete_sequence=['#87CEFA', '#FFA07A', '#D3D3D3', '#D3D3D3', '#D3D3D3'],
+                 color_discrete_sequence=['#FFA07A', '#87CEFA', '#D3D3D3', '#FFD966', '#B1D599'],
                  title='Sentiment Analysis Results')
     fig.update_layout(title_font=dict(size=20))
 
@@ -98,7 +98,7 @@ def plot_sentiment(csv_file: str) -> None:
     # Plot the pie chart
     labels = ['anger', 'sadness', 'neutral', 'joy', 'admiration'],
     values = [num_anger, num_sadness, num_neutral, num_joy, num_admiration]
-    colors = ['yellow', 'green', 'red', 'red', 'red']
+    colors = ['red', 'blue', 'grey', 'yellow', 'green']
     fig = go.Figure(data=[go.Pie(labels=labels, values=values, textinfo='label+percent',
                                  marker=dict(colors=colors))])
     fig.update_layout(

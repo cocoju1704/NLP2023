@@ -1,6 +1,6 @@
 import streamlit as st
 import os
-from Senti import extract_video_id,analyze_sentiment,bar_chart,plot_sentiment
+from SA_BERT import extract_video_id,analyze_sentiment,bar_chart,plot_sentiment
 from YoutubeCommentScrapper import save_video_comments_to_csv,get_channel_info,youtube,get_channel_id,get_video_stats
 
 
@@ -14,7 +14,7 @@ def delete_non_matching_csv_files(directory_path, video_id):
         os.remove(os.path.join(directory_path, file_name))
 
 
-st.set_page_config(page_title='Jatin_Agrawal_20BCS6606', page_icon = 'LOGO.png', initial_sidebar_state = 'auto')
+st.set_page_config(page_title='Youtube Comment Sentiment Analysis & Aggregation', page_icon = 'LOGO.png', initial_sidebar_state = 'auto')
 #st.set_page_config(page_title=None, page_icon=None, layout="centered", initial_sidebar_state="auto", menu_items=None)
 st.sidebar.title("Sentimental Analsis")
 st.sidebar.header("Enter YouTube Link")
@@ -41,7 +41,7 @@ if youtube_link:
         
         #using fn
         channel_info = get_channel_info(youtube,channel_id)
-               
+
         col1, col2 = st.columns(2)
 
         with col1:
@@ -57,16 +57,16 @@ if youtube_link:
            st.title("  ")
            st.title(" ")
            st.title(" ")
-           
-        
+
+
         #Using fn
-        
-        
-        
+
+
+
         st.title(" ")
         col3, col4 ,col5 = st.columns(3)
-        
-        
+
+
         with col3:
            video_count=channel_info['video_count']
            st.header("  Total Videos  ")
@@ -80,14 +80,14 @@ if youtube_link:
            st.subheader(created_date)
 
         with col5:
-            
+
             st.header(" Subscriber_Count ")
             st.subheader(channel_info["subscriber_count"])
-            
+
         st.title(" ")
 
-        stats = get_video_stats(video_id)   
-        
+        stats = get_video_stats(video_id)
+
         st.title("Video Information :")
         col6, col7 ,col8 = st.columns(3)
         
@@ -112,33 +112,7 @@ if youtube_link:
         
         _, container, _ = st.columns([10, 80, 10])
         container.video(data=youtube_link)
-      
-            
-        
-        '''
-        print("start")
-        #results = analyze_sentiment(csv_file)
-        print("end")
-        
-        col9, col10 ,col11 = st.columns(3)
 
-        labels = ['anger', 'sadness', 'neutral', 'joy', 'admiration'],
-
-        with col9:
-            st.header("  Positive Comments  ")
-           #st.subheader("Total Videos")
-            st.subheader(results['anger'])
-
-        with col10:
-           st.header(" Negative Comments ")
-           st.subheader( results['sadness'])
-           
-
-        with col11:
-            
-            st.header(" Neutral Comments ")
-            st.subheader(results['neutral'])
-        '''
         
         bar_chart(csv_file)
         

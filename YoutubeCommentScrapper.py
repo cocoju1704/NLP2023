@@ -2,12 +2,12 @@ import csv
 from googleapiclient.discovery import build
 from collections import Counter
 import streamlit as st
-from Senti_origin import extract_video_id
+from SA_BERT import extract_video_id
 from googleapiclient.errors import HttpError
-
+import numpy as np
 import warnings
 warnings.filterwarnings('ignore')
-
+import re
 # Replace with your own API key
 DEVELOPER_KEY = st.secrets["API_KEY"]
 YOUTUBE_API_SERVICE_NAME = 'youtube'
@@ -39,7 +39,11 @@ def save_video_comments_to_csv(video_id):
         for item in results['items']:
             comment = item['snippet']['topLevelComment']['snippet']['textDisplay']
             username = item['snippet']['topLevelComment']['snippet']['authorDisplayName']
-            comments.append([username,comment])
+            cleaned_comment = filtering(comment)
+            if cleaned_comment == "":
+                continue
+            else:
+                comments.append([username, cleaned_comment])
         if 'nextPageToken' in results:
             nextPage = results['nextPageToken']
             results = youtube.commentThreads().list(
@@ -107,5 +111,38 @@ def get_channel_info(youtube, channel_id):
         print(f'An error occurred: {error}')
         return None
 
-    
+
+def filtering(comment):
+    # Remove emojis
+    emoji_pattern = re.compile("["
+                               u"\U0001F600-\U0001F64F"  # emoticons
+                               u"\U0001F300-\U0001F5FF"  # symbols & pictographs
+                               u"\U0001F680-\U0001F6FF"  # transport & map symbols
+                               u"\U0001F1E0-\U0001F1FF"  # flags (iOS)
+                               u"\U00002702-\U000027B0"
+                               u"\U000024C2-\U0001F251"
+                               u"\U0001f926-\U0001f937"
+                               u'\U00010000-\U0010ffff'
+                               u"\u200d"
+                               u"\u2640-\u2642"
+                               u"\u2600-\u2B55"
+                               u"\u23cf"
+                               u"\u23e9"
+                               u"\u231a"
+                               u"\u3030"
+                               u"\ufe0f"
+                               "]+", flags=re.UNICODE)
+
+    cleanedText = emoji_pattern.sub(r"", comment)
+    cleanedText = re.sub("\n", " ", cleanedText)
+    cleanedText = " ".join(cleanedText.split())
+    cleanedText = cleanedText.strip()
+
+    # Check string consists only ASCII
+    try:
+        cleanedText.encode(encoding='utf-8').decode('ascii')
+    except UnicodeDecodeError:
+        return ""
+    else:
+        return cleanedText
 
