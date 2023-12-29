@@ -1,10 +1,15 @@
-# YouTube Sentiment Analysis & Aggregation Tool
+# YouTube Sentiment Analysis & Aggregation Framework
 
 This is a term-project for NLP2023 class(CSE4057) in Hanyang University.   
 This project provides a web application for sentiment analysis & aggregation result of YouTube comments.   
 On the input of a Youtube video link, it labels the sentimenets of each comment by using our own pretrained BERT model.   
-This model was pretrained by the datasets colleced on Youtube comments of news videos, which then was labeled by ChatGPT.   
 It then aggregates the analysis of each comment and present it to the user by visualizing the result into a bar plot.   
+
+## Model
+The model used in this framework is a pretrained BERT model.   
+The datasets used for pretraining was gathered from comments of Youtube news videos.   
+It then was classified by ChatGPT among these 5 sentiments:["anger", "sadness", "neutral", "joy", "surprise"], to create a labeled dataset.   
+To aim for better accuracy on ChatGPT classifying, various prompt engineering methods such as CoT mimic + FS were used.   
 
 ## Purpose 
 - To check the performance of ChatGPT on labeling unlabeled dataset.
